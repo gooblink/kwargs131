@@ -141,7 +141,7 @@
     \def\gt{>}
     \def\lt{<}
     % Document parameters
-    \title{131 Project}
+    \title{131 Project v2}
     
     
     
@@ -291,20 +291,24 @@ Koneru}\label{by-carolanne-link-and-vileena-koneru}
     \paragraph{Import the CSV}\label{import-the-csv}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}48}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
-         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
-         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
-         \PY{k+kn}{import} \PY{n+nn}{pylab}
-         \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{as} \PY{n+nn}{stats}
-         
-         \PY{n}{cc} \PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZti{}/Documents/UCLA/Academics/2018 Spring/Stats 131/crypto\PYZhy{}markets.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}228}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{pylab}
+          \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{as} \PY{n+nn}{stats}
+          \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{linear\PYZus{}model}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}
+          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+          \PY{n}{cc} \PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZti{}/Documents/UCLA/Academics/2018 Spring/Stats 131/crypto\PYZhy{}markets.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 
 
     \paragraph{View Head}\label{view-head}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}49}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{cc}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}229}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{cc}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -364,16 +368,37 @@ Wikipedia says since then over 4,000 alterative coins have been created.
 Ultimately, I'm very curious to explore this dataset and learn more
 about how the cryptocurrency market works and what trends are present.
 
+Cryptocurrency is enabled by the use of Blockchain, a decentralized
+record of transactions. A transaction is complete when it is permanently
+and unalterably added to the blockchain. Of the various types of
+cryptocurrency, Bitcoin is the most popular coin. Cryptocurrency is
+exciting to many because a decentralized system would obviate the need
+for a central clearing authority, such as a bank. Suggested applications
+of this technology are in voting electronically, keeping medical
+patients' information secure, managing fractional ownership of
+automobiles, financial services and more.
+
+However, cryptocurrency is a highly volatile form of currency with many
+financial experts claiming that it has no intrinsic value and is
+unsuitable for investments, citing that it is merely a speculative
+market. The Bitcoin crash of December 17, 2017 followed speculation that
+it would reach \$142,000 - when it in fact fell steadily and reached
+\$6500 this year. It is for this reason and the potential that people
+see in bitcoin that it is useful to predict where bitcoin will go in
+terms of future value. Speculative market or not, being able to predict
+the price of cryptocurrenncy is of advantage.
+
+Aside from the name and slug of the coin, this dataset is comprised of
+mostly numeric variables with the exception being the date. We can
+attempt predictions of the future value as well as observe past trends.
+
     \subsubsection{Information about Data
 Collection}\label{information-about-data-collection}
 
     \subparagraph{Who Collected the Data}\label{who-collected-the-data}
 
-    It does not clearly state who collected the data on the Kaggle website,
-but context leads me to believe that Jesse Vent did the collection
-himself. He has release several versions on Kaggle which leads me to
-believe that he at least is managing the data himself, if not collecting
-it or scraping it from somewhere.
+    The Kaggle user who posted and manages the data gives credit to the
+website CoinMarketCap for providing the data.
 
     \paragraph{When the data was
 collected}\label{when-the-data-was-collected}
@@ -431,19 +456,22 @@ refreshed".
 \textbf{Version 16} was uploaded 18 days ago with the note "Data refresh
 080618".
 
+Upon looking at the date column, we see that the data was collected in
+real-time from April 2013 to June 2018.
+
     \paragraph{How the data was collected}\label{how-the-data-was-collected}
 
-    It is not clearly stated how the data was collected. From the context
-and the notes it is clear that Jesse Vent is keeping up with a daily
-updated source or database of the cryptocurrency statistics. From the
-context of the variables, we know that data is taken every day at both
-opening and closing of the market. Over the course of each day the high
-and low are also recorded. This means that there is constant monitoring
-and data collection of the values throughout the day. They are probably
-published somewhere at the close of each day recapping the day's
-changes. I assume Jesse Vent collects and/or scrapes this data on what
-seems to be a pretty regular basis to keep this dataset up-to-date and
-properly organized.
+    It is not clearly stated how the data was collected. Neither Jesse Vent
+or the MarketCoinCap website specifies collection methods. From the
+context and the notes it is clear that MarketCoinCap is a daily updated
+source of the cryptocurrency statistics. From the context of the
+variables, we know that data is taken every day at both opening and
+closing of the market. Over the course of each day the high and low are
+also recorded. This means that there is constant monitoring and data
+collection of the values throughout the day. They are probably published
+at the close of each day recapping the day's changes. Jesse Vent scrapes
+this data on what seems to be a pretty regular basis to keep this
+dataset up-to-date and properly organized.
 
     \paragraph{Any implications this may have on
 analysis}\label{any-implications-this-may-have-on-analysis}
@@ -456,277 +484,1140 @@ decisions and investment choices.
     \subsection{Exploratory Analysis of the
 Data}\label{exploratory-analysis-of-the-data}
 
+    Let's look at the info for the whole dataset.
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}50}]:} \PY{c+c1}{\PYZsh{}Let\PYZsq{}s first explore each variable and its distribution}
-         \PY{c+c1}{\PYZsh{}How many unique cryptocurrencies are featured here? It claims \PYZdq{}all\PYZdq{} are featured.}
-         \PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
-         \PY{c+c1}{\PYZsh{}There are 1591 unique names of currencies with the most frequently represented currency being HempCoin.}
+{\color{incolor}In [{\color{incolor}230}]:} \PY{n}{cc}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 785024 entries, 0 to 785023
+Data columns (total 13 columns):
+slug           785024 non-null object
+symbol         785024 non-null object
+name           785024 non-null object
+date           785024 non-null object
+ranknow        785024 non-null int64
+open           785024 non-null float64
+high           785024 non-null float64
+low            785024 non-null float64
+close          785024 non-null float64
+volume         785024 non-null float64
+market         785024 non-null float64
+close\_ratio    785024 non-null float64
+spread         785024 non-null float64
+dtypes: float64(8), int64(1), object(4)
+memory usage: 77.9+ MB
+
+    \end{Verbatim}
+
+    Let's first explore each variable and its distribution. How many unique
+cryptocurrencies are featured here? It claims "all" are featured.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}231}]:} \PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}50}]:} count       785024
-         unique        1643
-         top       HempCoin
-         freq          2221
-         Name: name, dtype: object
+{\color{outcolor}Out[{\color{outcolor}231}]:} count       785024
+          unique        1643
+          top       HempCoin
+          freq          2221
+          Name: name, dtype: object
 \end{Verbatim}
             
+    There are 1643 unique names of currencies with the most frequently
+represented currency being HempCoin.
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slug}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
-         \PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{open}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
-         \PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{spread}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}232}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slug}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{symbol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+count       785024
+unique        1644
+top       namecoin
+freq          1866
+Name: slug, dtype: object
+count     785024
+unique      1605
+top          NET
+freq        1955
+Name: symbol, dtype: object
+
+    \end{Verbatim}
+
+    An article from the New York Times explains, "The term slug derives from
+the days of hot-metal printing, when printers set type by hand in a
+small form called a stick. Later huge Linotype machines turned molten
+lead into casts of letters, lines, sentences and paragraphs. A line of
+lead in both eras was known as a slug." In news articles, they became an
+abbreviation for topics. They could be acronyms or just abbreviated
+words. The NY Times gave a few examples, BRIT for Britain and SCOTUS for
+Supreme Court of the United States.
+
+In this case, a slug is the short name for a cryptocurrency, there are
+1644 slugs for 1643 different coins (name), which means that there is 1
+more slug than there are names. The most frequently featured slug is
+bitcoin.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}233}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+count       785024
+unique        1643
+top       HempCoin
+freq          2221
+Name: name, dtype: object
+
+    \end{Verbatim}
+
+    There are 1605 different symbols, which means that some symbols are used
+for multiple slugs and names. The top most frequented symbol is NET.
+
+    Next, we'll convert the date column to a datetime object and look at the
+date column.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}234}]:} \PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=}  \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{format}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y\PYZhy{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m\PYZhy{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{cc}\PY{o}{.}\PY{n}{date}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}51}]:} count    7.850240e+05
-         mean     1.252368e+02
-         std      7.379191e+03
-         min      0.000000e+00
-         25\%      0.000000e+00
-         50\%      0.000000e+00
-         75\%      4.000000e-02
-         max      1.770563e+06
-         Name: spread, dtype: float64
+{\color{outcolor}Out[{\color{outcolor}234}]:} count                  785024
+          unique                   1866
+          top       2018-05-24 00:00:00
+          freq                     1599
+          first     2013-04-28 00:00:00
+          last      2018-06-06 00:00:00
+          Name: date, dtype: object
 \end{Verbatim}
             
+    The date column ranges from April 28, 2013 to June 6, 2018. The top most
+frequent date is May 24, 2018.
+
+    Next,we look at the ranknow column.
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}52}]:} \PY{c+c1}{\PYZsh{}A slug is the short name for a bitcoin, there are 1592 slugs for 1591 different coins. Most frequently featured slug is namecoin.}
-         \PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slug}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}235}]:} \PY{n}{rank} \PY{o}{=} \PY{n}{cc}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ranknow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{slug}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{market}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+          \PY{n}{rank}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}52}]:} count       785024
-         unique        1644
-         top       namecoin
-         freq          1866
-         Name: slug, dtype: object
+{\color{outcolor}Out[{\color{outcolor}235}]:} ranknow  slug               
+          1        bitcoin                3.078214e+10
+          2        ethereum               1.892582e+10
+          3        ripple                 5.168853e+09
+          4        bitcoin-cash           1.845137e+10
+          5        eos                    4.189334e+09
+          6        litecoin               1.429485e+09
+          7        stellar                9.100688e+08
+          8        cardano                7.105550e+09
+          9        iota                   4.006688e+09
+          10       tron                   2.587292e+09
+          11       neo                    1.951882e+09
+          12       monero                 7.244444e+08
+          13       dash                   8.933909e+08
+          14       tether                 3.723972e+08
+          15       nem                    1.167381e+09
+          16       vechain                1.146229e+09
+          17       binance-coin           7.443559e+08
+          18       ethereum-classic       1.176534e+09
+          19       ontology               5.543627e+08
+          20       qtum                   1.320165e+09
+          21       omisego                1.143071e+09
+          22       bytecoin-bcn           1.784239e+08
+          23       icon                   1.259400e+09
+          24       zilliqa                5.340809e+08
+          25       zcash                  5.742421e+08
+          26       lisk                   5.489260e+08
+          27       aeternity              2.851382e+08
+          28       bitcoin-gold           2.057248e+09
+          29       decred                 1.655788e+08
+          30       0x                     3.752628e+08
+                                              {\ldots}     
+          1615     deltacredits           1.369835e+03
+          1616     x2                     0.000000e+00
+          1617     operand                0.000000e+00
+          1618     darklisk               0.000000e+00
+          1619     richcoin               0.000000e+00
+          1620     prismchain             0.000000e+00
+          1621     pokecoin               0.000000e+00
+          1622     todaycoin              0.000000e+00
+          1623     sportscoin             0.000000e+00
+          1624     omicron                0.000000e+00
+          1625     royalcoin              0.000000e+00
+          1626     lepen                  0.000000e+00
+          1627     kashhcoin              0.000000e+00
+          1628     ur                     0.000000e+00
+          1629     fazzcoin               0.000000e+00
+          1630     bitok                  0.000000e+00
+          1631     aseancoin              0.000000e+00
+          1632     ox-fina                0.000000e+00
+          1633     sigmacoin              0.000000e+00
+          1634     dutch-coin             0.000000e+00
+          1635     fapcoin                0.000000e+00
+          1636     plexcoin               0.000000e+00
+          1637     madcoin                3.050317e+05
+          1638     titanium-blockchain    0.000000e+00
+          1639     vcash                  3.384252e+06
+          1640     ereal                  9.210886e+04
+          1641     davorcoin              0.000000e+00
+          1643     entcash                0.000000e+00
+          1644     jingtum-tech           0.000000e+00
+          1645     aston                  0.000000e+00
+          Name: market, Length: 1644, dtype: float64
 \end{Verbatim}
             
+    From looking at the MarketCoinCap website,we see that the currencies are
+ranked based upon "Market Cap" value. According to Investopedia, "market
+cap" or Market Capitalization is the total dollar market value of a
+company's outstanding shares...it is calculated by multiplying a
+company's shares outstanding by the current market price of one share.
+The investment community uses this figure to determine a company's size,
+as opposed to using sales or total asset figures. Using market
+capitalization to show the size of a company is important because
+company size is a basic determinant of various characteristics in which
+investors are interested, including risk." It also provides the example
+calculation of a company with 20 million shares selling at 100 dollars a
+share would have a market cap of 2 billion dollars.\\
+Therefore, it comes as no surprise that bitcoin is ranked \#1, it is the
+most popular crypto-currency.
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}53}]:} \PY{c+c1}{\PYZsh{}From the summary we see opening prices are highly skewed to the right.}
-         \PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{open}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}236}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ranknow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
 
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}53}]:} count    7.850240e+05
-         mean     3.550859e+02
-         std      1.403939e+04
-         min      2.500000e-09
-         25\%      1.117000e-03
-         50\%      1.723150e-02
-         75\%      2.159187e-01
-         max      2.298390e+06
-         Name: open, dtype: float64
-\end{Verbatim}
-            
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}54}]:} \PY{c+c1}{\PYZsh{}Plotting a histogram of the log\PYZhy{}transformed values}
-         \PY{c+c1}{\PYZsh{}Resembles a normal distribution}
-         \PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logopen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{open}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logopen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+count    785024.000000
+mean        842.650876
+std         452.624872
+min           1.000000
+25\%         472.000000
+50\%         910.000000
+75\%        1185.000000
+max        1645.000000
+Name: ranknow, dtype: float64
+
+    \end{Verbatim}
+
+    The ranknow column has a minimum of 1 and a maximum of 1645.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}237}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{open}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{spread}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+count    7.850240e+05
+mean     3.550859e+02
+std      1.403939e+04
+min      2.500000e-09
+25\%      1.117000e-03
+50\%      1.723150e-02
+75\%      2.159187e-01
+max      2.298390e+06
+Name: open, dtype: float64
+count    7.850240e+05
+mean     1.252368e+02
+std      7.379191e+03
+min      0.000000e+00
+25\%      0.000000e+00
+50\%      0.000000e+00
+75\%      4.000000e-02
+max      1.770563e+06
+Name: spread, dtype: float64
+
+    \end{Verbatim}
+
+    From the summary we see opening prices are highly skewed to the right.
+Open prices are the opening value of each coin at the beginning of the
+market's day. The maximum is 2298390 and the minimum is close to 0
+(2.5x10\^{}-9) , with a mean of 355.0859 and a huge standard deviation
+of 14039.39. The 50\% quantile is at 0.01723150.
+
+    The spread, according to Investopedia is "the difference between the bid
+and the ask price of a security or asset. It can also refer to an
+options position established by purchasing one option and selling
+another option of the same class but of a different series." Jesse Vent
+defines this column as "Spread is the \$USD difference between the high
+and low values for the day". For our data, the spread is also highly
+skewed to the right. The minimum is 0 and the mximum is 1770563, with a
+mean of 125.2368 and a standard deviation of 7379.191. The 50\% quantile
+is 0.
+
+    To get a better idea of the distribution, we took the log.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}238}]:} \PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logopen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{open}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logopen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
+    Plotting a histogram of the log-transformed values created a plot that
+resembles a normal distribution.
+
+    We created a log transformed plot for the spread as well.
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}55}]:} \PY{c+c1}{\PYZsh{}Spread is also highly skewed to the right.}
-         \PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{spread}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}239}]:} \PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logspread}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log1p}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{spread}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logspread}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Adding 1 to the 0 values, log-transformed spread is still highly skewed.
+
+    Next, we look at the summary statistics for the high value. This is the
+highest value that crypto-currency attains durring the market day. We're
+starting to expect all the values to be skewed to the right.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}240}]:} \PY{n}{cc}\PY{o}{.}\PY{n}{high}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}55}]:} count    7.850240e+05
-         mean     1.252368e+02
-         std      7.379191e+03
-         min      0.000000e+00
-         25\%      0.000000e+00
-         50\%      0.000000e+00
-         75\%      4.000000e-02
-         max      1.770563e+06
-         Name: spread, dtype: float64
+{\color{outcolor}Out[{\color{outcolor}240}]:} count    7.850240e+05
+          mean     4.233219e+02
+          std      1.733459e+04
+          min      3.200000e-09
+          25\%      1.305000e-03
+          50\%      1.980350e-02
+          75\%      2.424478e-01
+          max      2.926100e+06
+          Name: high, dtype: float64
 \end{Verbatim}
             
+    The high values are skewed to the right, as expected. The minimum is
+close to 0 at (3.2x10\^{}-9) and a maximum of 2926100, with a mean of
+423.3219 and a standard deviation of 17334.59. The 50\% quantile is
+0.01980350. We took the log transformation to plot a histogram of the
+high values.
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}56}]:} \PY{c+c1}{\PYZsh{}Adding 1 to the 0 values}
-         \PY{c+c1}{\PYZsh{}Log\PYZhy{}transformed spread is still highly skewed}
-         \PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logspread}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log1p}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{spread}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logspread}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}241}]:} \PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loghigh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{high}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loghigh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_47_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
+    These results look the same as those for the opening values, the log
+transformation allows for normal behavior.
+
+    Next, we look at the low values. As the name would imply, this is the
+lowest value that the crypto-currency attains during the market day.
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}57}]:} \PY{c+c1}{\PYZsh{}Skewed to the right, as expected}
-         \PY{n}{cc}\PY{o}{.}\PY{n}{high}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}242}]:} \PY{n}{cc}\PY{o}{.}\PY{n}{low}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}57}]:} count    7.850240e+05
-         mean     4.233219e+02
-         std      1.733459e+04
-         min      3.200000e-09
-         25\%      1.305000e-03
-         50\%      1.980350e-02
-         75\%      2.424478e-01
-         max      2.926100e+06
-         Name: high, dtype: float64
+{\color{outcolor}Out[{\color{outcolor}242}]:} count    7.850240e+05
+          mean     2.980848e+02
+          std      1.157055e+04
+          min      9.200000e-14
+          25\%      9.630000e-04
+          50\%      1.511100e-02
+          75\%      1.915900e-01
+          max      2.030590e+06
+          Name: low, dtype: float64
 \end{Verbatim}
             
+    The low points span between 0 and 2030590. The mean is 298.0848 with a
+standard The span is hugely right skewed with 75\% of the values being
+below 0.19159.
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}58}]:} \PY{c+c1}{\PYZsh{}Same result as open \PYZhy{} log transformation allows for normal behavior}
-         \PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loghigh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{high}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loghigh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}243}]:} \PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loglow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{low}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loglow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
+    The log transform makes the data look somewhat normal, but it doesn't
+appear as normal as some of the other variables did under this
+transformation.
+
+    Next, we look at the close variable. Again, as the name would imply,
+this is the value at the close of the market day.
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{cc}\PY{o}{.}\PY{n}{low}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}244}]:} \PY{n}{cc}\PY{o}{.}\PY{n}{close}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}59}]:} count    7.850240e+05
-         mean     2.980848e+02
-         std      1.157055e+04
-         min      9.200000e-14
-         25\%      9.630000e-04
-         50\%      1.511100e-02
-         75\%      1.915900e-01
-         max      2.030590e+06
-         Name: low, dtype: float64
+{\color{outcolor}Out[{\color{outcolor}244}]:} count    7.850240e+05
+          mean     3.536499e+02
+          std      1.396510e+04
+          min      0.000000e+00
+          25\%      1.119000e-03
+          50\%      1.723000e-02
+          75\%      2.156592e-01
+          max      2.300740e+06
+          Name: close, dtype: float64
 \end{Verbatim}
             
+    The close values are between 0 and 2399740. The mean is 353.6499 with a
+standard deviation of 13965.10. The 50\% quantile is at 0.01723.
+
+We log transform the close values.
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}60}]:} \PY{c+c1}{\PYZsh{}Most coins in this dataset have a negative low value at some point in the day}
-         \PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loglow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{low}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loglow}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}245}]:} \PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logclose}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{log1p}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{close}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logclose}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_57_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
+    Closing value is similar to spread value, extremely skewed, or maybe a
+different transform is needed.
+
+    We then look at the Volume variable.
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}61}]:} \PY{c+c1}{\PYZsh{}Closing value is similar to spread value, extremely skewed, or maybe a different transform is needed}
-         \PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logclose}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{log1p}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{close}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logclose}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}246}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{cc}\PY{o}{.}\PY{n}{volume}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+count    7.850240e+05
+mean     7.459260e+06
+std      1.817992e+08
+min      0.000000e+00
+25\%      6.400000e+01
+50\%      1.201000e+03
+75\%      3.963225e+04
+max      2.384090e+10
+Name: volume, dtype: float64
+
+    \end{Verbatim}
+
+    The volume variable shows a low of 0, a high of 23840900000. The mean is
+7459260 with a standard deviaton of 181799200. The 50\% quantile is
+1201.
+
+    We look further into log transforming this variable, like we did with
+the others.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}247}]:} \PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logvol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{log1p}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{volume}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logvol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Log Volume}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Freq}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          \PY{n}{cc}\PY{o}{.}\PY{n}{logvol}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_63_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}62}]:} \PY{c+c1}{\PYZsh{}Volume}
-         \PY{c+c1}{\PYZsh{}The bulk of individual coins are exchanged somewhere between e\PYZca{}5 and e\PYZca{}13 times (?)}
-         \PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logvol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{log1p}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{volume}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logvol}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Log Volume}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Freq}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}247}]:} count    785024.000000
+          mean          7.459935
+          std           4.414825
+          min           0.000000
+          25\%           4.174387
+          50\%           7.091742
+          75\%          10.587424
+          max          23.894668
+          Name: logvol, dtype: float64
 \end{Verbatim}
+            
+    Volume: Half of all individual coins are exchanged somewhere between
+e\^{}4 and e\^{}11 times.
 
+    Next, we look into market value. We discussed this value briefly when we
+looked at the rank variable.
 
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_0.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}63}]:} \PY{c+c1}{\PYZsh{}Market value is skewed to the right}
-         \PY{n}{cc}\PY{o}{.}\PY{n}{market}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}248}]:} \PY{n}{cc}\PY{o}{.}\PY{n}{market}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}63}]:} count    7.850240e+05
-         mean     1.563100e+08
-         std      3.478147e+09
-         min      0.000000e+00
-         25\%      1.294600e+04
-         50\%      1.932045e+05
-         75\%      3.635550e+06
-         max      3.261410e+11
-         Name: market, dtype: float64
+{\color{outcolor}Out[{\color{outcolor}248}]:} count    7.850240e+05
+          mean     1.563100e+08
+          std      3.478147e+09
+          min      0.000000e+00
+          25\%      1.294600e+04
+          50\%      1.932045e+05
+          75\%      3.635550e+06
+          max      3.261410e+11
+          Name: market, dtype: float64
 \end{Verbatim}
             
+    The minimum is 0 and the maximum 326141000000. The mean is 156310000 and
+the standard deviation is 3478147000. The 50\% quantile is 193204.5. We
+see market value is skewed to the right.
+
+Again, we choose to try a log transformation.
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}64}]:} \PY{c+c1}{\PYZsh{}Log transform of market gives an almost\PYZhy{}normal distribution}
-         \PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logmarket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log1p}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{market}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logmarket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}249}]:} \PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logmarket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log1p}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{market}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logmarket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_68_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}67}]:} \PY{c+c1}{\PYZsh{}Close ratio is slightly skewed}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{cc}\PY{o}{.}\PY{n}{close\PYZus{}ratio}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Close Ratio}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
-\end{Verbatim}
+    Log transform of market gives an almost-normal distribution.
 
+    Lastly, we'll look at the closing ratio. Close ratio is the daily close
+rate, min-maxed with the high and low values for the day. Close Ratio =
+(Close-Low)/(High-Low)
 
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_0.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}68}]:} \PY{c+c1}{\PYZsh{}Can\PYZsq{}t log transform close\PYZus{}ratio}
-         \PY{c+c1}{\PYZsh{}Median close ratio is around 0.44}
-         \PY{n}{cc}\PY{o}{.}\PY{n}{close\PYZus{}ratio}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}250}]:} \PY{n}{cc}\PY{o}{.}\PY{n}{close\PYZus{}ratio}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}68}]:} count    7.850240e+05
-         mean             -inf
-         std               NaN
-         min              -inf
-         25\%      1.552000e-01
-         50\%      4.342000e-01
-         75\%      7.586000e-01
-         max      1.000000e+00
-         Name: close\_ratio, dtype: float64
+{\color{outcolor}Out[{\color{outcolor}250}]:} count    7.850240e+05
+          mean             -inf
+          std               NaN
+          min              -inf
+          25\%      1.552000e-01
+          50\%      4.342000e-01
+          75\%      7.586000e-01
+          max      1.000000e+00
+          Name: close\_ratio, dtype: float64
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}69}]:} \PY{c+c1}{\PYZsh{}Let\PYZsq{}s look at our new dataset with more accommodating log\PYZhy{}transformed variables and drop the others}
-         \PY{c+c1}{\PYZsh{}Why isn\PYZsq{}t this command working}
-         \PY{n}{cc}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logspread}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logclose}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logcr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-         \PY{n}{cc}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}251}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{boxplot}\PY{p}{(}\PY{n}{cc}\PY{o}{.}\PY{n}{close\PYZus{}ratio}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Close Ratio}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_72_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We see that since this is a ratio, the minimum and mean come across as
+-inf, and the standard deviation is NaN. The 25\% quantile is 0.1552.
+The 50\% quantile is at 0.4342. The 75\% quantile is 0.7586. The maximum
+is, of course, 1. Close ratio is slightly skewed. We can't log-transform
+this variable.
+
+    Let's look at our new dataset with more accommodating log-transformed
+variables and drop the others.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}252}]:} \PY{n}{cc}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logspread}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logclose}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{cc}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}252}]:}       slug symbol     name       date  ranknow    open    high     low  \textbackslash{}
+          0  bitcoin    BTC  Bitcoin 2013-04-28        1  135.30  135.98  132.10   
+          1  bitcoin    BTC  Bitcoin 2013-04-29        1  134.44  147.49  134.00   
+          2  bitcoin    BTC  Bitcoin 2013-04-30        1  144.00  146.93  134.05   
+          3  bitcoin    BTC  Bitcoin 2013-05-01        1  139.00  139.89  107.72   
+          4  bitcoin    BTC  Bitcoin 2013-05-02        1  116.38  125.60   92.28   
+          
+              close  volume        market  close\_ratio  spread   logopen  logspread  \textbackslash{}
+          0  134.21     0.0  1.500520e+09       0.5438    3.88  4.907495   1.585145   
+          1  144.54     0.0  1.491160e+09       0.7813   13.49  4.901118   2.673459   
+          2  139.00     0.0  1.597780e+09       0.3843   12.88  4.969813   2.630449   
+          3  116.99     0.0  1.542820e+09       0.2882   32.17  4.934474   3.501646   
+          4  105.21     0.0  1.292190e+09       0.3881   33.32  4.756861   3.535728   
+          
+              loghigh    loglow  logclose  logvol  logmarket  
+          0  4.912508  4.883559  4.906829     0.0  21.129078  
+          1  4.993760  4.897840  4.980451     0.0  21.122820  
+          2  4.989956  4.898213  4.941642     0.0  21.191881  
+          3  4.940856  4.679535  4.770600     0.0  21.156878  
+          4  4.833102  4.524827  4.665418     0.0  20.979604  
+\end{Verbatim}
+            
+    We are going to explore the relationships between some variables with
+plots to give us ideas of what to model.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}253}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{open}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{high}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Opening vs High Value}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}Change x and y axis scale}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_77_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    A scatterplot showing the relationship between the opening value of a
+coin and it's highest value. Opening value and high are directly
+correlated.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}254}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{high}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{spread}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High vs Spread Price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High Value}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}Change x and y axis scale}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Spread}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_79_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    A scatterplot showing highest value and spread. We can see a fan in the
+variance, non-constant variance is obvious.
+
+    Let's look at which currencies have the highest high and close values.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}255}]:} \PY{n}{highmeans} \PY{o}{=} \PY{n}{cc}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{high}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}256}]:} \PY{n}{highmeans}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}256}]:} name
+          Bit20                 573800.507742
+          Project-X             291122.594070
+          42-coin                17652.879396
+          Russian Miner Coin     11995.447078
+          Primalbase Token        4615.546571
+          IDEX Membership         4304.785652
+          bitBTC                  3113.846189
+          CryptopiaFeeShares      2673.788523
+          Bitcoin                 1951.660102
+          bitGold                 1461.007459
+          Internet of Things      1261.868184
+          Bitcoin Cash            1182.859091
+          Mixin                    977.271409
+          Maker                    890.052639
+          WETH                     847.635417
+          300 Token                556.053070
+          Byteball Bytes           345.830228
+          Zcash                    264.443959
+          TerraNova                253.844006
+          SegWit2x                 215.186281
+          Ethereum                 205.027354
+          Lightning Bitcoin        197.714129
+          Sovereign Hero           187.035625
+          Veritaseum               181.205357
+          BT2 [CST]                171.860237
+          Bitcoin Gold             166.013568
+          Gnosis                   161.364403
+          Dash                     121.775981
+          Xaurum                   109.507864
+          United Bitcoin           100.948304
+                                    {\ldots}      
+          IncaKoin                   0.000093
+          Elite                      0.000091
+          PopularCoin                0.000087
+          Coupecoin                  0.000084
+          VapersCoin                 0.000084
+          Carboncoin                 0.000083
+          EmberCoin                  0.000082
+          Protean                    0.000073
+          Pandacoin                  0.000067
+          SatoshiMadness             0.000059
+          InflationCoin              0.000054
+          LiteDoge                   0.000054
+          EXRNchain                  0.000052
+          Powercoin                  0.000050
+          Selfiecoin                 0.000047
+          Zeitcoin                   0.000042
+          Infinitecoin               0.000040
+          StrongHands                0.000038
+          Mooncoin                   0.000036
+          SmileyCoin                 0.000029
+          Slothcoin                  0.000028
+          Karmacoin                  0.000025
+          NewYorkCoin                0.000023
+          Photon                     0.000017
+          FedoraCoin                 0.000012
+          RabbitCoin                 0.000011
+          Dimecoin                   0.000010
+          BunnyCoin                  0.000009
+          GCN Coin                   0.000007
+          The Cypherfunks            0.000006
+          Name: high, Length: 1643, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}257}]:} \PY{n}{closemeans} \PY{o}{=} \PY{n}{cc}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{close}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}258}]:} \PY{n}{closemeans}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}258}]:} name
+          Bit20                 485437.176774
+          Project-X             231403.399461
+          42-coin                15309.871509
+          Russian Miner Coin     10827.388037
+          Primalbase Token        4239.073048
+          IDEX Membership         3936.608406
+          bitBTC                  2840.327591
+          CryptopiaFeeShares      2416.614765
+          Bitcoin                 1889.513762
+          bitGold                 1366.551230
+          Internet of Things      1134.038905
+          Bitcoin Cash            1104.780376
+          Mixin                    895.261275
+          Maker                    839.815556
+          WETH                     719.216806
+          300 Token                480.605222
+          Byteball Bytes           318.646717
+          Zcash                    237.645051
+          Ethereum                 196.889603
+          SegWit2x                 181.911308
+          Sovereign Hero           173.063406
+          TerraNova                170.493456
+          Lightning Bitcoin        165.915419
+          Veritaseum               155.713325
+          Gnosis                   151.362836
+          Bitcoin Gold             150.840793
+          BT2 [CST]                146.461706
+          Dash                     116.109724
+          Xaurum                   102.320777
+          United Bitcoin            87.891287
+                                    {\ldots}      
+          Elite                      0.000075
+          PopularCoin                0.000070
+          EmberCoin                  0.000065
+          IncaKoin                   0.000065
+          Carboncoin                 0.000064
+          Coupecoin                  0.000061
+          VapersCoin                 0.000058
+          Pandacoin                  0.000055
+          SatoshiMadness             0.000051
+          Protean                    0.000051
+          EXRNchain                  0.000045
+          LiteDoge                   0.000042
+          Powercoin                  0.000041
+          InflationCoin              0.000040
+          Selfiecoin                 0.000038
+          Infinitecoin               0.000035
+          Zeitcoin                   0.000032
+          StrongHands                0.000029
+          Mooncoin                   0.000028
+          Karmacoin                  0.000023
+          SmileyCoin                 0.000023
+          NewYorkCoin                0.000019
+          Slothcoin                  0.000016
+          Photon                     0.000013
+          FedoraCoin                 0.000010
+          Dimecoin                   0.000008
+          RabbitCoin                 0.000008
+          BunnyCoin                  0.000007
+          GCN Coin                   0.000005
+          The Cypherfunks            0.000005
+          Name: close, Length: 1643, dtype: float64
+\end{Verbatim}
+            
+    In both cases of high and close, the top value is from Bit20 and the
+lowest is The Cypherfunks.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}259}]:} \PY{n}{volmeans} \PY{o}{=} \PY{n}{cc}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{volume}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+          \PY{n}{volmeans}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}259}]:} name
+          Bitcoin             1.171548e+09
+          Bitcoin Cash        9.292763e+08
+          Ethereum            7.075375e+08
+          EOS                 5.363772e+08
+          Tether              4.634491e+08
+          TRON                3.354088e+08
+          Cardano             2.162328e+08
+          Qtum                2.144078e+08
+          Ripple              1.719680e+08
+          Ethereum Classic    1.584033e+08
+          CK USD              1.388396e+08
+          Litecoin            1.208760e+08
+          Huobi Token         1.087217e+08
+          IOTA                9.974698e+07
+          Bitcoin Gold        9.727490e+07
+          Mithril             9.703662e+07
+          Ontology            9.427183e+07
+          NEO                 8.797341e+07
+          IOST                7.076920e+07
+          aelf                6.680524e+07
+          OmiseGO             6.648238e+07
+          True Chain          6.619169e+07
+          Cortex              6.610622e+07
+          Status              6.456758e+07
+          Binance Coin        6.300307e+07
+          Hshare              6.140922e+07
+          ICON                6.091282e+07
+          Storm               6.027209e+07
+          QuarkChain          5.910860e+07
+          VeChain             5.848345e+07
+                                  {\ldots}     
+          Bitz                2.164561e+02
+          PrismChain          2.120461e+02
+          Shilling            2.111863e+02
+          ImpulseCoin         2.042978e+02
+          RichCoin            2.040903e+02
+          PosEx               2.003247e+02
+          Opescoin            1.957782e+02
+          Steps               1.957478e+02
+          NodeCoin            1.900261e+02
+          Polcoin             1.765823e+02
+          EggCoin             1.639026e+02
+          BowsCoin            1.616835e+02
+          Selfiecoin          1.612840e+02
+          Metal Music Coin    1.599432e+02
+          PX                  1.585195e+02
+          Cycling Coin        1.575436e+02
+          BTCtalkcoin         1.455293e+02
+          Californium         1.370664e+02
+          DAPPSTER            1.356612e+02
+          Firecoin            1.199340e+02
+          PLNcoin             1.170874e+02
+          MindCoin            1.133014e+02
+          iBank               1.126857e+02
+          MetalCoin           1.084583e+02
+          PokeCoin            1.006804e+02
+          DarkLisk            9.478374e+01
+          Bitcoin 21          9.372652e+01
+          SportsCoin          9.240208e+01
+          TAGRcoin            8.508323e+01
+          X2                  8.047327e+01
+          Name: volume, Length: 1643, dtype: float64
+\end{Verbatim}
+            
+    Bit20 has both the highest high and highest close value. The lowest high
+belongs to The Cypherfunks and lowest close value belongs to X2.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}260}]:} \PY{n}{cc}\PY{o}{.}\PY{n}{volume}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}260}]:} count    7.850240e+05
+          mean     7.459260e+06
+          std      1.817992e+08
+          min      0.000000e+00
+          25\%      6.400000e+01
+          50\%      1.201000e+03
+          75\%      3.963225e+04
+          max      2.384090e+10
+          Name: volume, dtype: float64
+\end{Verbatim}
+            
+    The largest volume on average is Bitcoin, which comes as no surprise
+since it's the most well-known of the cryptocurrencies.
+
+    Volume is the amount of that coin traded in that day in the last 24 hrs.
+A demand indicator for future price of coin. More demand, higher future
+price. Mean volume is 7459260.
+
+    Next, we look at the relationship between open and close prices.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}261}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{open}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{close}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Open vs Close Price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Open Value}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}Change x and y axis scale}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Close}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{mod\PYZus{}fit} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{cc}\PY{o}{.}\PY{n}{open}\PY{p}{,} \PY{n}{cc}\PY{o}{.}\PY{n}{close}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          \PY{n}{res} \PY{o}{=} \PY{n}{mod\PYZus{}fit}\PY{o}{.}\PY{n}{resid} \PY{c+c1}{\PYZsh{} residuals}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_93_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    This relationship looks like one that could very accurately be modeled
+by a linear model. We will explore this below.
+
+    \subsection{Model}\label{model}
+
+    \subsubsection{Simple Linear Model Between Open and
+Close}\label{simple-linear-model-between-open-and-close}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}262}]:} \PY{n}{X} \PY{o}{=} \PY{n}{cc}\PY{o}{.}\PY{n}{open}
+          \PY{n}{X}\PY{o}{.}\PY{n}{shape}
+          \PY{n}{X} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{785024}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+          \PY{n}{y}\PY{o}{=} \PY{n}{cc}\PY{o}{.}\PY{n}{close}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(785024, 1)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}263}]:} \PY{n}{regr} \PY{o}{=} \PY{n}{linear\PYZus{}model}\PY{o}{.}\PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}264}]:} \PY{n}{regr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}264}]:} LinearRegression(copy\_X=True, fit\_intercept=True, n\_jobs=1, normalize=False)
+\end{Verbatim}
+            
+    \subparagraph{Coefficients and
+Intercepts}\label{coefficients-and-intercepts}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}265}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coefficients: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{regr}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Intercept: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{regr}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Coefficients: 
+ [0.9511476]
+Intercept: 
+ 15.910857376516503
+
+    \end{Verbatim}
+
+    \subparagraph{R\^{}2 Value}\label{r2-value}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}266}]:} \PY{c+c1}{\PYZsh{} r squared value}
+          \PY{n}{regr}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}  \PY{c+c1}{\PYZsh{} when we fit all of the data points}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}266}]:} 0.9143320966535049
+\end{Verbatim}
+            
+    This means that this model explains 91.4\% of the variation in the
+response variable around its mean.
+
+    \subparagraph{Plot}\label{plot}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}267}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{regr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{open}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{close}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Open vs Close Price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Open Value}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}Change x and y axis scale}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Close}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{mod\PYZus{}fit} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{cc}\PY{o}{.}\PY{n}{open}\PY{p}{,} \PY{n}{cc}\PY{o}{.}\PY{n}{close}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          \PY{n}{res} \PY{o}{=} \PY{n}{mod\PYZus{}fit}\PY{o}{.}\PY{n}{resid} \PY{c+c1}{\PYZsh{} residuals}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{regr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_106_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}268}]:} \PY{n}{residuals\PYZus{}linear} \PY{o}{=} \PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}pred}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{residuals\PYZus{}linear}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}268}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1c13cb8470>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_107_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The data does look normal.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}269}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{res}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_109_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    There are no obvious trends in the residuals.
+
+    \subparagraph{Cross-Validation}\label{cross-validation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}270}]:} \PY{n}{cv\PYZus{}results} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{regr}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{cv} \PY{o}{=} \PY{l+m+mi}{5}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 5 fold cross validation}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{cv\PYZus{}results}\PY{p}{)}  \PY{c+c1}{\PYZsh{} lots of variation}
+          \PY{c+c1}{\PYZsh{} an undesirable trait}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0.99152461 0.95170542 0.90813792 0.97480055 0.92823925]
+
+    \end{Verbatim}
+
+    The R\^{}2 and CV values reassure us that the simple linear model is a
+good fit.
+
+    We will try Ridge regression to get something that hopefully performs a
+little bit better.
+
+    \subsubsection{Ridge Regression}\label{ridge-regression}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}271}]:} \PY{n}{ridgemodel} \PY{o}{=} \PY{n}{linear\PYZus{}model}\PY{o}{.}\PY{n}{Ridge}\PY{p}{(}\PY{n}{alpha} \PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{fit2}\PY{o}{=} \PY{n}{ridgemodel}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subparagraph{Coefficient and
+Intercept}\label{coefficient-and-intercept}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}272}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ridge Coefficient: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ridgemodel}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ridge Intercept: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ridgemodel}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Ridge Coefficient: 
+ [0.9511476]
+Ridge Intercept: 
+ 15.910857376530089
+
+    \end{Verbatim}
+
+    \subparagraph{Ridge Model Score}\label{ridge-model-score}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}273}]:} \PY{n}{ridgemodel}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}273}]:} 0.9143320966535049
+\end{Verbatim}
+            
+    This means that this model explains 91.4\% of the variation in the
+response variable around its mean.
+
+    \subparagraph{Cross-Validation}\label{cross-validation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}274}]:} \PY{n}{cv\PYZus{}results} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{ridgemodel}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{cv} \PY{o}{=} \PY{l+m+mi}{5}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 5 fold cross validation}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{cv\PYZus{}results}\PY{p}{)}  
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[0.99152461 0.95170542 0.90813792 0.97480055 0.92823925]
+
+    \end{Verbatim}
+
+    \subparagraph{Plot}\label{plot}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}275}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{ridgemodel}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{open}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{close}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Open vs Close Price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Open Value}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}Change x and y axis scale}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Close}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+          \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{ridgemodel}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_125_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We use both Linaer Regression and Ridge Regression to create a moel for
+this data. They came out very similarly because it is a simple linear
+regression. We chose not to include more predictors because our R\^{}2
+and our Ridge scores are very good, both over 91\%.
+
+    \subsubsection{Multiple Linear
+Regression}\label{multiple-linear-regression}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}276}]:} \PY{n}{regr2} \PY{o}{=} \PY{n}{linear\PYZus{}model}\PY{o}{.}\PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+          \PY{n}{X2} \PY{o}{=} \PY{n}{cc}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{open}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{high}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{low}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}282}]:} \PY{n}{X2}\PY{o}{.}\PY{n}{shape}
+          \PY{n}{X2} \PY{o}{=} \PY{n}{X2}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{785024}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{X2}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -734,79 +1625,52 @@ Data}\label{exploratory-analysis-of-the-data}
 
         ---------------------------------------------------------------------------
 
-        ValueError                                Traceback (most recent call last)
+        AttributeError                            Traceback (most recent call last)
 
-        <ipython-input-69-5389f929eaca> in <module>()
-          1 \#Let's look at our new dataset with more accommodating log-transformed variables and drop the others
-          2 \#Why isn't this command working
-    ----> 3 cc.drop(columns=['logspread','logclose','logcr'])
-          4 cc.head()
-
-
-        /anaconda3/lib/python3.6/site-packages/pandas/core/generic.py in drop(self, labels, axis, index, columns, level, inplace, errors)
-       2528         for axis, labels in axes.items():
-       2529             if labels is not None:
-    -> 2530                 obj = obj.\_drop\_axis(labels, axis, level=level, errors=errors)
-       2531 
-       2532         if inplace:
+        <ipython-input-282-2f1ef4f2c7c2> in <module>()
+          1 X2.shape
+    ----> 2 X2 = X2.values.reshape([785024,3])
+          3 print(X2.shape)
 
 
-        /anaconda3/lib/python3.6/site-packages/pandas/core/generic.py in \_drop\_axis(self, labels, axis, level, errors)
-       2560                 new\_axis = axis.drop(labels, level=level, errors=errors)
-       2561             else:
-    -> 2562                 new\_axis = axis.drop(labels, errors=errors)
-       2563             dropped = self.reindex(**\{axis\_name: new\_axis\})
-       2564             try:
-
-
-        /anaconda3/lib/python3.6/site-packages/pandas/core/indexes/base.py in drop(self, labels, errors)
-       3742             if errors != 'ignore':
-       3743                 raise ValueError('labels \%s not contained in axis' \%
-    -> 3744                                  labels[mask])
-       3745             indexer = indexer[\textasciitilde{}mask]
-       3746         return self.delete(indexer)
-
-
-        ValueError: labels ['logcr'] not contained in axis
+        AttributeError: 'numpy.ndarray' object has no attribute 'values'
 
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}70}]:} \PY{c+c1}{\PYZsh{}A scatterplot showing the relationship between the opening value of a coin and it\PYZsq{}s highest value}
-         \PY{c+c1}{\PYZsh{}Opening value and high are directly correlated}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{open}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{high}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Opening vs High Value}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}Change x and y axis scale}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{regr2}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X2}\PY{p}{,}\PY{n}{y}\PY{p}{)}
 \end{Verbatim}
 
 
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_0.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
+    \subparagraph{Coefficients and
+Intercepts}\label{coefficients-and-intercepts}
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}71}]:} \PY{c+c1}{\PYZsh{}A scatterplot showing highest value and spread}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{high}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{cc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{spread}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High vs Spread Price}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{High Value}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}Change x and y axis scale}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Spread}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
-         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor} }]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coefficients: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{regr2}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Intercept: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{regr2}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{)}
 \end{Verbatim}
 
 
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_0.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
+    \subparagraph{R\^{}2}\label{r2}
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}72}]:} \PY{c+c1}{\PYZsh{}Volume is the amount of that coin traded in that day in the last 24 hrs}
-         \PY{c+c1}{\PYZsh{}A demand indicator for future price of coin}
-         \PY{c+c1}{\PYZsh{}More demand, higher future price}
-         \PY{c+c1}{\PYZsh{}Median volue is 1104}
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} r squared value}
+        \PY{n}{regr2}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X2}\PY{p}{,} \PY{n}{y}\PY{p}{)}  \PY{c+c1}{\PYZsh{} when we fit all of the data points}
 \end{Verbatim}
 
+
+    \subparagraph{Cross-Validation}\label{cross-validation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{cv\PYZus{}results} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{regr2}\PY{p}{,} \PY{n}{X2}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{cv} \PY{o}{=} \PY{l+m+mi}{5}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 5 fold cross validation}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{cv\PYZus{}results}\PY{p}{)}  
+\end{Verbatim}
+
+
+    The multiple linear regression, using high and low in addition to the
+open predictor gives a R\^{}2 of 97.3\%! This means that this model
+explains 97.3\% of the variation in the response variable around its
+mean.
 
 
     % Add a bibliography block to the postdoc
